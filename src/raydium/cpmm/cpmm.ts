@@ -299,6 +299,7 @@ export default class CpmmModule extends ModuleBase {
     feeConfig,
     computeBudgetConfig,
     txTipConfig,
+    jitoConfig,
     feePayer,
     ...params
   }: CreateCpmmPoolParam<T>): Promise<MakeTxData<T, { address: CreateCpmmPoolAddress }>> {
@@ -316,6 +317,7 @@ export default class CpmmModule extends ModuleBase {
     const mintBUseSOLBalance = ownerInfo.useSOLBalance && mintB.address === NATIVE_MINT.toBase58();
     const [mintAPubkey, mintBPubkey] = [new PublicKey(mintA.address), new PublicKey(mintB.address)];
     const txBuilder = this.createTxBuilder(feePayer);
+    txBuilder.addTipInstruction(txTipConfig);
 
     const { account: userVaultA, instructionParams: userVaultAInstruction } =
       await this.scope.account.getOrCreateTokenAccount({
@@ -392,7 +394,7 @@ export default class CpmmModule extends ModuleBase {
     });
 
     txBuilder.addCustomComputeBudget(computeBudgetConfig);
-    txBuilder.addTipInstruction(txTipConfig);
+    txBuilder.addTipInstruction(jitoConfig);
     return txBuilder.versionBuild({
       txVersion,
       extInfo: {
@@ -555,6 +557,7 @@ export default class CpmmModule extends ModuleBase {
       slippage,
       computeBudgetConfig,
       txTipConfig,
+      jitoConfig,
       txVersion,
       feePayer,
       closeWsol = true,
@@ -579,6 +582,7 @@ export default class CpmmModule extends ModuleBase {
 
     const { account } = this.scope;
     const txBuilder = this.createTxBuilder(feePayer);
+    txBuilder.addTipInstruction(txTipConfig);
     const [mintA, mintB] = [new PublicKey(poolInfo.mintA.address), new PublicKey(poolInfo.mintB.address)];
 
     const mintAUseSOLBalance = mintA.equals(WSOLMint);
@@ -655,7 +659,7 @@ export default class CpmmModule extends ModuleBase {
       lookupTableAddress: poolKeys.lookupTableAccount ? [poolKeys.lookupTableAccount] : [],
     });
     txBuilder.addCustomComputeBudget(computeBudgetConfig);
-    txBuilder.addTipInstruction(txTipConfig);
+    txBuilder.addTipInstruction(jitoConfig);
     return txBuilder.versionBuild({ txVersion }) as Promise<MakeTxData<T>>;
   }
 
@@ -671,6 +675,7 @@ export default class CpmmModule extends ModuleBase {
       config,
       computeBudgetConfig,
       txTipConfig,
+      jitoConfig,
       txVersion,
       feePayer,
     } = params;
@@ -683,6 +688,7 @@ export default class CpmmModule extends ModuleBase {
     };
 
     const txBuilder = this.createTxBuilder(feePayer);
+    txBuilder.addTipInstruction(txTipConfig);
 
     const [mintA, mintB] = [new PublicKey(poolInfo.mintA.address), new PublicKey(poolInfo.mintB.address)];
 
@@ -798,7 +804,7 @@ export default class CpmmModule extends ModuleBase {
     });
 
     txBuilder.addCustomComputeBudget(computeBudgetConfig);
-    txBuilder.addTipInstruction(txTipConfig);
+    txBuilder.addTipInstruction(jitoConfig);
     return txBuilder.versionBuild({ txVersion }) as Promise<MakeTxData<T>>;
   }
 

@@ -72,6 +72,7 @@ export interface CreateCpmmPoolParam<T> {
   computeBudgetConfig?: ComputeBudgetConfig;
   txVersion?: T;
   txTipConfig?: TxTipConfig;
+  jitoConfig?: TxTipConfig;
   feePayer?: PublicKey;
 }
 
@@ -121,6 +122,7 @@ export interface WithdrawCpmmLiquidityParams<T = TxVersion.LEGACY> {
   slippage: Percent;
   computeBudgetConfig?: ComputeBudgetConfig;
   txTipConfig?: TxTipConfig;
+  jitoConfig?: TxTipConfig;
   txVersion?: T;
   feePayer?: PublicKey;
   closeWsol?: boolean;
@@ -143,6 +145,7 @@ export interface CpmmSwapParams<T = TxVersion.LEGACY> {
   };
   computeBudgetConfig?: ComputeBudgetConfig;
   txTipConfig?: TxTipConfig;
+  jitoConfig?: TxTipConfig;
   txVersion?: T;
   feePayer?: PublicKey;
 }
