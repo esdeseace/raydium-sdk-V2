@@ -199,6 +199,21 @@ export class TxBuilder {
     return false;
   }
 
+  public addJitoTipInstruction(tipConfig?: TxTipConfig): boolean {
+    if (tipConfig) {
+      this.instructions.push(
+        SystemProgram.transfer({
+          fromPubkey: tipConfig.feePayer ?? this.feePayer,
+          toPubkey: new PublicKey(tipConfig.address),
+          lamports: BigInt(tipConfig.amount.toString()),
+        }),
+      );
+      this.instructionTypes.push(InstructionType.TransferTip);
+      return true;
+    }
+    return false;
+  }
+
   public addTipInstruction(tipConfig?: TxTipConfig): boolean {
     if (tipConfig) {
       this.endInstructions.push(

@@ -393,7 +393,7 @@ export default class CpmmModule extends ModuleBase {
     });
 
     txBuilder.addCustomComputeBudget(computeBudgetConfig);
-    txBuilder.addTipInstruction(jitoConfig);
+    txBuilder.addJitoTipInstruction(jitoConfig);
     txBuilder.addTipInstruction(txTipConfig);
 
     return txBuilder.versionBuild({
@@ -659,7 +659,7 @@ export default class CpmmModule extends ModuleBase {
       lookupTableAddress: poolKeys.lookupTableAccount ? [poolKeys.lookupTableAccount] : [],
     });
     txBuilder.addCustomComputeBudget(computeBudgetConfig);
-    txBuilder.addTipInstruction(jitoConfig);
+    txBuilder.addJitoTipInstruction(jitoConfig);
     txBuilder.addTipInstruction(txTipConfig);
 
     return txBuilder.versionBuild({ txVersion }) as Promise<MakeTxData<T>>;
@@ -805,7 +805,7 @@ export default class CpmmModule extends ModuleBase {
     });
 
     txBuilder.addCustomComputeBudget(computeBudgetConfig);
-    txBuilder.addTipInstruction(jitoConfig);
+    txBuilder.addJitoTipInstruction(jitoConfig);
     txBuilder.addTipInstruction(txTipConfig);
     return txBuilder.versionBuild({ txVersion }) as Promise<MakeTxData<T>>;
   }
