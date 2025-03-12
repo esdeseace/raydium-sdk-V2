@@ -201,14 +201,14 @@ export class TxBuilder {
 
   public addTipInstruction(tipConfig?: TxTipConfig): boolean {
     if (tipConfig) {
-      this.instructions.push(
+      this.endInstructions.push(
         SystemProgram.transfer({
           fromPubkey: tipConfig.feePayer ?? this.feePayer,
           toPubkey: new PublicKey(tipConfig.address),
           lamports: BigInt(tipConfig.amount.toString()),
         }),
       );
-      this.instructionTypes.push(InstructionType.TransferTip);
+      this.endInstructionTypes.push(InstructionType.TransferTip);
       return true;
     }
     return false;
